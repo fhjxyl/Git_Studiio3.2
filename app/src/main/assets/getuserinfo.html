@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="content-type">
+        <title>
+            js调用java
+        </title>
+    </head>
+    <body>
+        <p>
+            <xmp id="show">
+            </xmp>
+        </p>
+        <div align="center">
+            <p>
+                <input type="button" id="enter" value="获取用户信息" onclick="testClick1();"
+                />
+            </p>
+        </div>
+    </body>
+    <script>
+    function testClick1() {
+            //call native method
+            window.WebViewJavascriptBridge.callHandler(
+                'callNative'
+                , {'param': '中文测试'}
+                , function(responseData) {
+                alert('responseData = '+responseData)
+                    document.getElementById("show").innerHTML = "send get responseData from java, data = " + responseData
+                }
+            );
+        }
+
+        function getUserInfo(){
+            WebViewJavascriptBridge.callHandler(
+                'getUserInfo'
+                ,{'info': 'I am JS, want to get UserInfo from Java'}
+                ,function(responseData) {
+                   document.getElementById("show").innerHTML = "repsonseData from java, data = " + responseData
+                   <!--document.getElementById("show").innerHTML = "repsonseData from java,\ndata = " + responseData;-->
+                }
+            )；
+        }
+    </script>
+</html>
